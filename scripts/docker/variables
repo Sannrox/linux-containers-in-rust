@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+set -eu
+
+DOCKER_IMAGE_TAG=${DOCKER_IMAGE_TAG:-$(whoami | sed 's/[^[:alnum:]._-]\+/_/g')}
+DOCKER_HUB_USER=${DOCKER_HUB_USER:-}
+DOCKER_HUB_PASSWORD=${DOCKER_HUB_PASSWORD:-}
+
+GIT_BRANCH=${GIT_BRANCH:-$(git name-rev --name-only HEAD)}
+
+
+if [ "${GIT_BRANCH}" = "main" ]; then
+    DOCKER_IMAGE_TAG="latest"
+fi
+
+DOCKER_NAME=${DOCKER_NAME:-lc}
+
+
+
+DOCKER_CONTAINER_IMAGE_NAME="${DOCKER_NAME}:${DOCKER_IMAGE_TAG}"
+
+
+export DOCKER_IMAGE_TAG
+export DOCKER_CONTAINER_IMAGE_NAME
+export DOCKER_HUB_PASSWORD
+export DOCKER_HUB_USER
+export REGISTRY
+export DOCKER_BUILDKIT=1
+
+DOCKER_BUILD_ARGS=""
+
+export DOCKER_BUILD_ARGS

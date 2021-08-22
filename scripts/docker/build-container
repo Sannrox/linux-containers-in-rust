@@ -1,0 +1,19 @@
+#! /usr/bin/env sh
+
+set -eu
+
+
+
+. ./scripts/docker/variables
+
+echo "Buliding Container $DOCKER_CONTAINER_IMAGE_NAME"
+
+if [ "$DOCKER_IMAGE_TAG" = "latest" ]; then
+    docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD $REGISTRY &&
+    docker build $DOCKER_BUILD_ARGS -t $DOCKER_CONTAINER_IMAGE_NAME . &&
+    docker push $DOCKER_CONTAINER_IMAGE_NAME;
+fi
+if [ "$DOCKER_IMAGE_TAG" != "latest" ]; then
+    DOCKER_BUILDKIT=0 docker build $DOCKER_BUILD_ARGS -t $DOCKER_CONTAINER_IMAGE_NAME . ;
+fi
+

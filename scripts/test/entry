@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+set -eu
+
+
+cd "${0%/*}"
+
+#set -e
+fail=0
+tests=0
+passed=0
+
+find . -type f  -not -name "entry" -not -name "tmp" > tmp
+while IFS= read -r file
+do
+  tests=$((tests+1))
+  echo TEST: "$file"
+   ./"$file"
+   ret=$?
+   if [ $ret -eq 0 ] ; then
+     echo OK: ---- "$file"
+     passed=$((passed+1))
+   else
+     echo FAIL: "$file $fail"
+     fail=$((fail+ret))
+   fi
+done < tmp
+rm tmp
+if [ $fail -eq 0 ]; then
+  /bin/echo 'SUCCESS '
+  exitcode=0
+else
+  /bin/echo 'FAILURE '
+  exitcode=1
+fi
+echo "$passed / $tests"
+exit $exitcode
+

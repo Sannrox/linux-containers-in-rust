@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+set -eu
+
+. ./scripts/docker/variables
+
+echo "Running Container $DOCKER_CONTAINER_IMAGE_NAME"
+
+docker run --rm -it -v "${PWD}":/opt/ "${DOCKER_CONTAINER_IMAGE_NAME}" /bin/bash
