@@ -13,7 +13,7 @@ if [ "${GIT_BRANCH}" = "main" ]; then
     DOCKER_IMAGE_TAG="latest"
 fi
 
-DOCKER_NAME=${DOCKER_NAME:-lc}
+DOCKER_NAME=${DOCKER_NAME:-lcir}
 
 
 

@@ -6,4 +6,4 @@ set -eu
 
 echo "Running Container $DOCKER_CONTAINER_IMAGE_NAME"
 
-docker run --rm -it -v "${PWD}":/opt/ "${DOCKER_CONTAINER_IMAGE_NAME}" /bin/bash
+docker run --rm -it -v "${PWD}":/usr/src/lcir "${DOCKER_CONTAINER_IMAGE_NAME}" /bin/sh
